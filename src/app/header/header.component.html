@@ -1,8 +1,18 @@
 <div class="container">
   <ul>
-    <li><mat-icon class="matIcon">add</mat-icon></li>
-    <li>
-      <mat-icon class="matIcon">view_list</mat-icon>
+    <li routerLinkActive="activeLink">
+      <a routerLink="add"
+        ><mat-icon class="matIcon" routerLinkActive="activeLink"
+          >add</mat-icon
+        ></a
+      >
+    </li>
+    <li routerLinkActive="activeLink">
+      <a routerLink="todo"
+        ><mat-icon class="matIcon" routerLinkActive="activeLink"
+          >view_list</mat-icon
+        ></a
+      >
     </li>
   </ul>
 </div>
