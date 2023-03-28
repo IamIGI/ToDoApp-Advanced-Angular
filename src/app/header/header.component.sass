@@ -1,11 +1,17 @@
 @import 'src/app/utilities/styles/variables.sass'
 
+
+.activeLink
+    color: gray
+    border-bottom: 1px solid gray
+
 .matIcon 
     display: flex
     justify-content: center
     align-items: center
 
 .container
+    width: 100%
     display: flex
     flex-direction: row
     justify-content: flex-start
@@ -22,11 +28,16 @@
             padding: 5px 8px
             margin: 4px 9px
             display: inline-block
+            color: gray
+            a
+                text-decoration: none
+                color: black
         
             &:hover
-                color: white
-                cursor: pointer
-                color: gray
+                 cursor: pointer
+                 a
+                     color: gray
+           
                 
 
 
