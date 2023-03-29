@@ -24,10 +24,6 @@ export class AddComponent {
   }
 
   onSubmit() {
-    if (!this.addTaskForm.valid) {
-      console.log('err');
-    }
-
     console.log(this.addTaskForm.value);
 
     this.setPerson(0);
