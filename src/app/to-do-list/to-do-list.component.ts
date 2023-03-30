@@ -12,11 +12,11 @@ import { ToDoService } from '../services/toDo.services';
 export class ToDoListComponent {
   toDoSubscription: Subscription = new Subscription();
   toDos: ToDoObject[] = [];
+  statusInPercentage = '60%';
+  numberOfTasks = 2;
+  tasksDone = 1;
 
-  constructor(
-    private toDoService: ToDoService,
-    private toDoApi: ToDoApiService
-  ) {}
+  constructor(private toDoService: ToDoService) {}
 
   ngOnInit() {
     this.toDos = this.toDoService.getToDos();

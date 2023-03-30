@@ -1,0 +1,34 @@
+@import '/src/app/utilities/styles/variables.sass'
+
+.container 
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: flex-start
+    gap: 20px
+
+.progressBarContainer
+    position: relative
+    border: 1px solid gray
+    border-radius:  $default-borderRadius
+    width: 250px
+    height: 40px
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    font-size: $fontSize-medium
+    background-color: white
+
+.progressBarLoading
+    height:100%
+    border-radius:  $default-borderRadius
+    // width: 40%
+    background-color: #E6E675
+
+.progressBarText
+    position: absolute
+    top: 20%
+    left: 30%
+
+    span
+        font-weight: 700
