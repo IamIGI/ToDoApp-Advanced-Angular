@@ -4,12 +4,11 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
-import { ToDoObject } from 'src/model/toDo.model';
 import { ToDoService } from '../services/toDo.services';
 
-export const ToDoSiteResolver: ResolveFn<ToDoObject[]> = (
+export const AddSiteResolver: ResolveFn<void> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  return inject(ToDoService).fetchToDo();
+  return inject(ToDoService).clearEditedItemObject();
 };

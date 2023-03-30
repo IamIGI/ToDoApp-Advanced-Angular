@@ -1,4 +1,5 @@
 import { Component, SimpleChange } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
 // import { ToDoApiService } from 'src/app/api/toDo.api';
 import { ToDoObject } from 'src/model/toDo.model';
@@ -19,7 +20,7 @@ export class ToDoListComponent {
   tasksDone = 1;
   isLoading = false;
 
-  constructor(private toDoService: ToDoService) {}
+  constructor(private toDoService: ToDoService, private router: Router) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -42,11 +43,25 @@ export class ToDoListComponent {
       }
     );
   }
+
+  onEdit(_id: string) {
+    this.toDoService.setEditedItem(_id);
+    this.navigateToFormPage();
+  }
+
+  onIsDoneChange(_id: string) {
+    this.toDoService.isDoneUpdate(_id);
+  }
+
   onDelete(_id: string) {
     this.toDoService.deleteToDo(_id);
   }
 
   ngOnDestroy() {
     this.toDoSubscription.unsubscribe();
+  }
+
+  navigateToFormPage() {
+    this.router.navigate(['/add']);
   }
 }

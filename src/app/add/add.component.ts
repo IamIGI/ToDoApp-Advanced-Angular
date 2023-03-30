@@ -13,6 +13,7 @@ export class AddComponent {
   peoples: string[] = ['Igor', 'Anna', 'Bartek'];
   assignedPerson: string = this.peoples[0];
   forbiddenTaskDictionaries = ['nothing', 'eating', 'sleeping'];
+  editedToDoItem_id: string = '';
 
   constructor(private toDoService: ToDoService) {}
 
@@ -24,6 +25,8 @@ export class AddComponent {
       ]),
       assignPerson: new FormControl(this.peoples[0]),
     });
+
+    this.editToDoItem();
   }
 
   onSubmit() {
@@ -31,14 +34,36 @@ export class AddComponent {
       userName: this.addTaskForm.value.assignPerson,
       title: this.addTaskForm.value.taskName,
     };
-    this.toDoService.createToDo(toDoObject).subscribe();
 
-    this.setPerson(0);
-    this.addTaskForm.reset();
+    if (this.editedToDoItem_id) {
+      this.toDoService
+        .updateToDo(
+          this.editedToDoItem_id,
+          toDoObject.title,
+          toDoObject.userName
+        )
+        .subscribe();
+    } else {
+      this.toDoService.createToDo(toDoObject).subscribe();
+    }
+
+    this.resetForm();
   }
 
   setShowPeoples() {
     this.showPeoples = !this.showPeoples;
+  }
+
+  editToDoItem() {
+    const editedItem = this.toDoService.getEditedItem();
+    if (editedItem._id) {
+      this.editedToDoItem_id = editedItem._id;
+      this.addTaskForm.patchValue({
+        taskName: editedItem.title,
+      });
+      const indexOfEditedPerson = this.peoples.indexOf(editedItem.userName);
+      this.setPerson(indexOfEditedPerson);
+    }
   }
 
   setPerson(index: number) {
@@ -56,5 +81,11 @@ export class AddComponent {
       return { taskIsForbidden: true };
     }
     return null;
+  }
+
+  resetForm() {
+    this.setPerson(0);
+    this.addTaskForm.reset();
+    this.toDoService.clearEditedItemObject();
   }
 }

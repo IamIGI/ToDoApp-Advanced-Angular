@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { toDoResolver } from './toDo.resolver';
+// import { ToDoSiteResolver } from './toDo.resolver';
 import { ToDoListComponent } from './to-do-list.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ToDoListComponent,
-    // resolve: { todo: toDoResolver },
+    // resolve: { todo: ToDoSiteResolver },
   },
 ];
 
