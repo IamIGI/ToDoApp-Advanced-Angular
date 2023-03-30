@@ -1,3 +1,13 @@
 <p>to-do-list works!</p>
 
+<div class="container">
+  <div class="progressBarContainer">
+    <div class="progressBarText">
+      <span>{{ tasksDone }}</span> of <span>{{ numberOfTasks }}</span> tasks
+      done
+    </div>
+    <div [style.width]="statusInPercentage" class="progressBarLoading"></div>
+  </div>
+</div>
+
 {{ toDos | json }}
