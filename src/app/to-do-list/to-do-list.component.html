@@ -1,5 +1,3 @@
-<p>to-do-list works!</p>
-
 <div class="container">
   <div class="progressBarContainer">
     <div class="progressBarText">
@@ -8,6 +6,22 @@
     </div>
     <div [style.width]="statusInPercentage" class="progressBarLoading"></div>
   </div>
-</div>
 
-{{ toDos | json }}
+  <div class="toDoListContainer">
+    <ul>
+      <li *ngFor="let todo of toDos; let i = index">
+        <div class="toDoItem">
+          <div class="toDoItemSection">
+            <input type="checkbox" />
+            {{ todo.title }}
+          </div>
+          <div class="toDoItemSection">
+            {{ todo.userName }}
+            <button><mat-icon>edit</mat-icon></button>
+            <button><mat-icon>delete</mat-icon></button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

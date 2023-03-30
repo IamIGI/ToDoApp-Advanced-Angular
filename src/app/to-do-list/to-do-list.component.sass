@@ -1,12 +1,7 @@
 @import '/src/app/utilities/styles/variables.sass'
 
-.container 
-    display: flex
-    flex-direction: column
-    justify-content: flex-start
-    align-items: flex-start
-    gap: 20px
 
+// -------start  of progresss Bar--------------
 .progressBarContainer
     position: relative
     border: 1px solid gray
@@ -32,3 +27,55 @@
 
     span
         font-weight: 700
+
+    // -------end of progresss Bar--------------
+
+.container 
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: flex-start
+    gap: 20px
+
+.toDoListContainer
+    margin: 0 10px
+    width: 95%
+
+    ul 
+        list-style-type: none
+        padding: 0
+
+        li:not(:last-child)
+            margin-bottom: 10px
+
+
+
+.toDoItem
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    border-bottom: 1px solid #B8E6FF
+
+.toDoItemSection
+    display: flex
+    width: fit-content
+    flex-direction: row
+    justify-content: flex-start
+    align-items: center
+    gap: 10px
+
+    input
+        &:hover
+            cursor: pointer
+
+    button
+        background-color: white
+        border: 0px
+        color: $color-buttonFontWaiting
+        margin: 0
+        padding: 0
+
+        &:hover 
+            cursor: pointer
+            color: $color-buttonFontActive
+
