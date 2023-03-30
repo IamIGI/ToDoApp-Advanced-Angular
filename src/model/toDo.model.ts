@@ -4,3 +4,8 @@ export interface ToDoObject {
   title: string;
   date?: string;
 }
+
+export interface ToDoCreateTaskResponse {
+  message: string;
+  toDoId: string;
+}

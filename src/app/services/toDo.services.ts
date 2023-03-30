@@ -1,25 +1,36 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { inject } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { Subject } from 'rxjs';
-import { ToDoObject } from 'src/model/toDo.model';
-import { ToDoApiService } from '../api/toDo.api';
+import { Subject, tap } from 'rxjs';
+import { ToDoCreateTaskResponse, ToDoObject } from 'src/model/toDo.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ToDoService {
+  URL = 'http://localhost:5000/todolist';
   toDoListChange = new Subject<ToDoObject[]>();
-
   private toDo: ToDoObject[] = [];
 
-  setToDo(toDo: ToDoObject[]) {
-    this.toDo = toDo;
-    this.refreshToDoList();
+  constructor(private http: HttpClient) {}
+
+  fetchToDo() {
+    return this.http.get<ToDoObject[]>(this.URL + '/all').pipe(
+      tap((data) => {
+        this.toDo = data;
+      })
+    );
+  }
+
+  createToDo(newToDo: { userName: string; title: string }) {
+    return this.http.post<ToDoCreateTaskResponse>(this.URL + '/add', newToDo);
+  }
+
+  deleteToDo(_id: string) {
+    return this.http.delete(this.URL + '/delete/' + _id).subscribe({
+      next: () => {
+        this.refreshToDoList();
+      },
+    });
   }
 
   getToDos() {
@@ -31,13 +42,11 @@ export class ToDoService {
   }
 
   refreshToDoList() {
-    this.toDoListChange.next(this.toDo.slice());
+    this.fetchToDo().subscribe({
+      next: (response) => {
+        this.toDoListChange.next(response);
+      },
+    });
+    // this.toDoListChange.next(this.toDo.slice());
   }
 }
-
-export const toDoResolver: ResolveFn<ToDoObject[]> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  return inject(ToDoApiService).fetchRecipes();
-};

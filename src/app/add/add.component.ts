@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToDoService } from '../services/toDo.services';
 
 @Component({
   selector: 'app-add',
@@ -13,6 +14,8 @@ export class AddComponent {
   assignedPerson: string = this.peoples[0];
   forbiddenTaskDictionaries = ['nothing', 'eating', 'sleeping'];
 
+  constructor(private toDoService: ToDoService) {}
+
   ngOnInit() {
     this.addTaskForm = new FormGroup({
       taskName: new FormControl(null, [
@@ -24,7 +27,11 @@ export class AddComponent {
   }
 
   onSubmit() {
-    console.log(this.addTaskForm.value);
+    const toDoObject = {
+      userName: this.addTaskForm.value.assignPerson,
+      title: this.addTaskForm.value.taskName,
+    };
+    this.toDoService.createToDo(toDoObject).subscribe();
 
     this.setPerson(0);
     this.addTaskForm.reset();
