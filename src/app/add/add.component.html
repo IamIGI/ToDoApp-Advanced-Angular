@@ -22,26 +22,31 @@
       >This field is required</span
     >
   </span>
-  <div class="assignPersonSection">
-    <div class="assignPersonRelative" (click)="setShowPeoples()">
-      <input
-        class="assignPersonInput"
-        [placeholder]="assignedPerson"
-        disabled
-      />
-      <mat-icon class="assignPersonDropDownIcon">expand_more</mat-icon>
+  <div class="midSection">
+    <div class="assignPersonSection">
+      <div class="assignPersonRelative" (click)="setShowPeoples()">
+        <input
+          class="assignPersonInput"
+          [placeholder]="assignedPerson"
+          disabled
+        />
+        <mat-icon class="assignPersonDropDownIcon">expand_more</mat-icon>
+      </div>
+      <div class="assignPersonOptions" *ngIf="showPeoples">
+        <ul (click)="setShowPeoples()">
+          <li
+            *ngFor="let people of peoples; let index = index"
+            fromControlName="assignPeople"
+            (click)="setPerson(index)"
+          >
+            {{ people }}
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="assignPersonOptions" *ngIf="showPeoples">
-      <ul (click)="setShowPeoples()">
-        <li
-          *ngFor="let people of peoples; let index = index"
-          fromControlName="assignPeople"
-          (click)="setPerson(index)"
-        >
-          {{ people }}
-        </li>
-      </ul>
-    </div>
+    <button class="clearButton" type="button" (click)="resetForm()">
+      Clear
+    </button>
   </div>
 
   <span *ngIf="!addTaskForm.valid && addTaskForm.touched"

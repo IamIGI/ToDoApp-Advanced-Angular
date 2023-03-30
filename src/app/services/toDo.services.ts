@@ -85,6 +85,5 @@ export class ToDoService {
         this.toDoListChange.next(response);
       },
     });
-    // this.toDoListChange.next(this.toDo.slice());
   }
 }

@@ -87,5 +87,6 @@ export class AddComponent {
     this.setPerson(0);
     this.addTaskForm.reset();
     this.toDoService.clearEditedItemObject();
+    this.editedToDoItem_id = '';
   }
 }
