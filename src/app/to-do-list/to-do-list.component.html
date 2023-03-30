@@ -1,4 +1,5 @@
-<div class="container">
+<div *ngIf="isLoading">Loading</div>
+<div *ngIf="!isLoading" class="container">
   <div class="progressBarContainer">
     <div class="progressBarText">
       <span>{{ tasksDone }}</span> of <span>{{ numberOfTasks }}</span> tasks
@@ -18,7 +19,9 @@
           <div class="toDoItemSection">
             {{ todo.userName }}
             <button><mat-icon>edit</mat-icon></button>
-            <button><mat-icon>delete</mat-icon></button>
+            <button (click)="onDelete(todo._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
         </div>
       </li>
