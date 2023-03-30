@@ -13,12 +13,24 @@
       <li *ngFor="let todo of toDos; let i = index">
         <div class="toDoItem">
           <div class="toDoItemSection">
-            <input type="checkbox" />
-            {{ todo.title }}
+            <input
+              type="checkbox"
+              [checked]="todo.isDone"
+              (click)="onIsDoneChange(todo._id)"
+            />
+            <span
+              [ngStyle]="{
+                'text-decoration': todo.isDone ? 'line-through' : 'none'
+              }"
+            >
+              {{ todo.title }}
+            </span>
           </div>
           <div class="toDoItemSection">
             {{ todo.userName }}
-            <button><mat-icon>edit</mat-icon></button>
+            <button (click)="onEdit(todo._id)">
+              <mat-icon>edit</mat-icon>
+            </button>
             <button (click)="onDelete(todo._id)">
               <mat-icon>delete</mat-icon>
             </button>
