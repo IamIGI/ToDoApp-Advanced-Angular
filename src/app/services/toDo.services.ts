@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, tap } from 'rxjs';
 import { ToDoCreateTaskResponse, ToDoObject } from 'src/model/toDo.model';
+import { toDoFiltersService } from './toDo.filters';
 
-const EDITED_ITEM_MOCK = {
+export const EDITED_ITEM_MOCK = {
   _id: '',
   userName: '',
   title: '',
@@ -22,7 +23,10 @@ export class ToDoService {
   private toDoFiltered: ToDoObject[] = [];
   private editedItem: ToDoObject = EDITED_ITEM_MOCK;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private toDoFilters: toDoFiltersService
+  ) {}
 
   fetchToDo() {
     return this.http.get<ToDoObject[]>(this.URL + '/all').pipe(
@@ -34,20 +38,18 @@ export class ToDoService {
   }
 
   searchToDo(searchValue: string) {
-    if (searchValue === '') this.toDoFiltered = this.toDo;
-    this.toDoFiltered = this.toDo.filter((obj) =>
-      obj.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
-
+    this.toDoFiltered = this.toDoFilters.filter(this.toDo, {
+      name: 'search',
+      value: searchValue,
+    });
     this.refreshToDoListWhenNoRequestWasMade();
   }
 
   filterByName(name: string) {
-    console.log(name);
-    this.toDoFiltered = this.toDo.filter((obj) => {
-      return obj.userName === name;
+    this.toDoFiltered = this.toDoFilters.filter(this.toDo, {
+      name: 'byName',
+      value: name,
     });
-
     this.refreshToDoListWhenNoRequestWasMade();
   }
 

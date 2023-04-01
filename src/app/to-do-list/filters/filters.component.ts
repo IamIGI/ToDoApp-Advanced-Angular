@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToDoService } from 'src/app/services/toDo.services';
+import DATA from 'src/app/data/global.data';
 
 @Component({
   selector: 'app-filters',
@@ -8,10 +9,15 @@ import { ToDoService } from 'src/app/services/toDo.services';
 })
 export class FiltersComponent {
   showPeoples: boolean = false;
-  peoples: string[] = ['Igor', 'Anna', 'Bartek'];
-  assignedPerson: string = this.peoples[0];
+  peoples: string[] = DATA.PEOPLE;
+  assignedPerson: string = '';
 
   constructor(private toDoService: ToDoService) {}
+
+  ngOnInit() {
+    this.peoples.splice(0, 0, 'Show All');
+    this.assignedPerson = this.peoples[0];
+  }
 
   setShowPeoples() {
     this.showPeoples = !this.showPeoples;

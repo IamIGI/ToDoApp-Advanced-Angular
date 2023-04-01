@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToDoService } from '../services/toDo.services';
+import DATA from 'src/app/data/global.data';
 
 @Component({
   selector: 'app-add',
@@ -10,8 +11,8 @@ import { ToDoService } from '../services/toDo.services';
 export class AddComponent {
   addTaskForm!: FormGroup;
   showPeoples: boolean = false;
-  peoples: string[] = ['Igor', 'Anna', 'Bartek'];
-  assignedPerson: string = this.peoples[0];
+  peoples: string[] = DATA.PEOPLE;
+  assignedPerson = this.peoples[0];
   forbiddenTaskDictionaries = ['nothing', 'eating', 'sleeping'];
   editedToDoItem_id: string = '';
 
