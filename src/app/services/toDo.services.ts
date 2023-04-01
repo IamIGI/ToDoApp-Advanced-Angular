@@ -15,8 +15,11 @@ const EDITED_ITEM_MOCK = {
 })
 export class ToDoService {
   URL = 'http://localhost:5000/todolist';
+
   toDoListChange = new Subject<ToDoObject[]>();
+
   private toDo: ToDoObject[] = [];
+  private toDoFiltered: ToDoObject[] = [];
   private editedItem: ToDoObject = EDITED_ITEM_MOCK;
 
   constructor(private http: HttpClient) {}
@@ -25,8 +28,18 @@ export class ToDoService {
     return this.http.get<ToDoObject[]>(this.URL + '/all').pipe(
       tap((data) => {
         this.toDo = data;
+        this.toDoFiltered = data;
       })
     );
+  }
+
+  searchToDo(searchValue: string) {
+    if (searchValue === '') this.toDoFiltered = this.toDo;
+    this.toDoFiltered = this.toDo.filter((obj) =>
+      obj.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
+    this.toDoListChange.next(this.toDoFiltered);
   }
 
   createToDo(newToDo: { userName: string; title: string }) {
@@ -72,14 +85,16 @@ export class ToDoService {
   }
 
   getToDos() {
-    return this.toDo.slice();
+    console.log(this.toDoFiltered);
+    return this.toDoFiltered.slice();
   }
 
   getToDo(_id: string) {
-    return this.toDo.find((object) => object._id === _id);
+    return this.toDoFiltered.find((object) => object._id === _id);
   }
 
   refreshToDoList() {
+    console.log('refreshed');
     this.fetchToDo().subscribe({
       next: (response) => {
         this.toDoListChange.next(response);
