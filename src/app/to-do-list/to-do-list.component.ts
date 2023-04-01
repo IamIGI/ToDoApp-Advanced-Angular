@@ -1,4 +1,4 @@
-import { Component, SimpleChange } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
 // import { ToDoApiService } from 'src/app/api/toDo.api';
@@ -13,11 +13,9 @@ import { ToDoService } from '../services/toDo.services';
 export class ToDoListComponent {
   toDoObservable!: Observable<ToDoObject[]>;
   error: string | null = null;
-  toDoSubscription: Subscription = new Subscription();
+  toDoSubscription = new Subscription();
   toDos: ToDoObject[] = [];
-  statusInPercentage = '60%';
-  numberOfTasks = 2;
-  tasksDone = 1;
+
   isLoading = false;
 
   constructor(private toDoService: ToDoService, private router: Router) {}
@@ -57,11 +55,11 @@ export class ToDoListComponent {
     this.toDoService.deleteToDo(_id);
   }
 
-  ngOnDestroy() {
-    this.toDoSubscription.unsubscribe();
-  }
-
   navigateToFormPage() {
     this.router.navigate(['/add']);
+  }
+
+  ngOnDestroy() {
+    this.toDoSubscription.unsubscribe();
   }
 }
