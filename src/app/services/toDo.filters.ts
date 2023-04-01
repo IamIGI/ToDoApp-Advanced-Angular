@@ -14,18 +14,14 @@ export class toDoFiltersService {
   private searchValue: string = '';
   private filterNameValue: string = 'All';
   private sortByValue: sortBy = null;
-  //   toFoFiltered: ToDoObject[] = [EDITED_ITEM_MOCK];
   toDoFilteredChange = new Subject<ToDoObject[]>();
 
   filter(toDos: ToDoObject[], filter: editFilter): ToDoObject[] {
     this.setFilterValue(filter);
 
     let toDoFiltered: ToDoObject[] = [EDITED_ITEM_MOCK];
-    console.log(toDos);
     toDoFiltered = this.searchToDo(toDos, this.searchValue);
-    console.log(toDoFiltered);
     toDoFiltered = this.filterByName(toDoFiltered, this.filterNameValue);
-    console.log(toDoFiltered);
     return toDoFiltered;
   }
 
@@ -34,15 +30,11 @@ export class toDoFiltersService {
     return toDos.filter((obj) =>
       obj.title.toLowerCase().includes(searchValue.toLowerCase())
     );
-
-    // this.refreshToDoListWhenNoRequestWasMade();
   }
 
   filterByName(toDos: ToDoObject[], name: string) {
     if (name === 'Show All') return toDos;
     return toDos.filter((obj) => obj.userName === name);
-
-    // this.refreshToDoListWhenNoRequestWasMade();
   }
 
   setFilterValue(filter: editFilter) {
