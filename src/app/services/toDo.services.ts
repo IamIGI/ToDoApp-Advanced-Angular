@@ -39,7 +39,7 @@ export class ToDoService {
       obj.title.toLowerCase().includes(searchValue.toLowerCase())
     );
 
-    this.toDoListChange.next(this.toDoFiltered);
+    this.refreshToDoListWhenNoRequestWasMade();
   }
 
   createToDo(newToDo: { userName: string; title: string }) {
@@ -49,7 +49,7 @@ export class ToDoService {
   isDoneUpdate(_id: string) {
     return this.http.patch(this.URL + '/isDoneEdit', { id: _id }).subscribe({
       next: () => {
-        this.refreshToDoList();
+        this.downloadAndRefreshNewToDoList();
       },
     });
   }
@@ -66,7 +66,7 @@ export class ToDoService {
   deleteToDo(_id: string) {
     return this.http.delete(this.URL + '/delete/' + _id).subscribe({
       next: () => {
-        this.refreshToDoList();
+        this.downloadAndRefreshNewToDoList();
       },
     });
   }
@@ -93,8 +93,11 @@ export class ToDoService {
     return this.toDoFiltered.find((object) => object._id === _id);
   }
 
-  refreshToDoList() {
-    console.log('refreshed');
+  refreshToDoListWhenNoRequestWasMade() {
+    this.toDoListChange.next(this.toDoFiltered);
+  }
+
+  downloadAndRefreshNewToDoList() {
     this.fetchToDo().subscribe({
       next: (response) => {
         this.toDoListChange.next(response);
