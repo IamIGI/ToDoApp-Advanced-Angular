@@ -3,7 +3,7 @@ import { ToDoObject } from 'src/model/toDo.model';
 import { Subject } from 'rxjs';
 import { EDITED_ITEM_MOCK } from './toDo.services';
 
-type sortBy = 'name' | 'date' | 'isDone' | null;
+export type sortBy = 'Done' | 'Name' | 'None';
 type filters = 'search' | 'byName' | 'sort';
 type editFilter = { name: filters; value: string | sortBy };
 
@@ -12,8 +12,8 @@ type editFilter = { name: filters; value: string | sortBy };
 })
 export class toDoFiltersService {
   private searchValue: string = '';
-  private filterNameValue: string = 'All';
-  private sortByValue: sortBy = null;
+  private filterNameValue: string = 'Show All';
+  private sortByValue: sortBy = 'None';
   toDoFilteredChange = new Subject<ToDoObject[]>();
 
   filter(toDos: ToDoObject[], filter: editFilter): ToDoObject[] {
@@ -22,7 +22,23 @@ export class toDoFiltersService {
     let toDoFiltered: ToDoObject[] = [EDITED_ITEM_MOCK];
     toDoFiltered = this.searchToDo(toDos, this.searchValue);
     toDoFiltered = this.filterByName(toDoFiltered, this.filterNameValue);
+    toDoFiltered = this.sortBy(toDoFiltered, this.sortByValue);
     return toDoFiltered;
+  }
+
+  sortBy(toDos: ToDoObject[], sortBy: sortBy): ToDoObject[] {
+    switch (sortBy) {
+      case 'Name':
+        return toDos.sort((a, b) =>
+          a.userName > b.userName ? 1 : b.userName > a.userName ? -1 : 0
+        );
+      case 'Done':
+        return toDos.sort(
+          (a, b) => (a.isDone === b.isDone ? 0 : a.isDone ? -1 : 1) // 1 : -1 for false first
+        );
+      default: //None
+        return toDos;
+    }
   }
 
   searchToDo(toDos: ToDoObject[], searchValue: string): ToDoObject[] {

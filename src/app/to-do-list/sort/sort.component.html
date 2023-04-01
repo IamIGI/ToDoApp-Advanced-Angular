@@ -1,0 +1,21 @@
+<div class="assignPersonSection">
+  <div class="assignPersonRelative" (click)="showSortOptions()">
+    <input
+      class="assignPersonInput"
+      [placeholder]="assignedSortOption"
+      disabled
+    />
+    <mat-icon class="assignPersonDropDownIcon">expand_more</mat-icon>
+  </div>
+  <div class="assignPersonOptions" *ngIf="showFilters">
+    <ul (click)="showSortOptions()">
+      <li
+        *ngFor="let people of sortOptions; let index = index"
+        fromControlName="assignPeople"
+        (click)="setSortOption(index)"
+      >
+        {{ people }}
+      </li>
+    </ul>
+  </div>
+</div>

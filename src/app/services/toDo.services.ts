@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, tap } from 'rxjs';
 import { ToDoCreateTaskResponse, ToDoObject } from 'src/model/toDo.model';
-import { toDoFiltersService } from './toDo.filters';
+import { sortBy, toDoFiltersService } from './toDo.filters';
 
 export const EDITED_ITEM_MOCK = {
   _id: '',
@@ -49,6 +49,14 @@ export class ToDoService {
     this.toDoFiltered = this.toDoFilters.filter(this.toDo, {
       name: 'byName',
       value: name,
+    });
+    this.refreshToDoListWhenNoRequestWasMade();
+  }
+
+  sortBy(value: string) {
+    this.toDoFiltered = this.toDoFilters.filter(this.toDo, {
+      name: 'sort',
+      value,
     });
     this.refreshToDoListWhenNoRequestWasMade();
   }

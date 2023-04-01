@@ -8,9 +8,10 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { FormsModule } from '@angular/forms';
 import { FiltersComponent } from './filters/filters.component';
+import { SortComponent } from './sort/sort.component';
 
 @NgModule({
-  declarations: [ToDoListComponent, ProgressBarComponent, SearchBarComponent, FiltersComponent],
+  declarations: [ToDoListComponent, ProgressBarComponent, SearchBarComponent, FiltersComponent, SortComponent],
 
   imports: [
     RouterModule,
