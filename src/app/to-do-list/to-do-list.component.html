@@ -5,9 +5,13 @@
     Brak zadań
   </div>
   <ng-template #templateName>
-  
     <app-progress-bar />
-    <app-filters />
+
+    <div class="filterContainer">
+      <app-filters />
+      <app-sort />
+    </div>
+    
     <div class="toDoListContainer">
       <ul>
         <li *ngFor="let todo of toDos; let i = index">
