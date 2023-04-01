@@ -1,9 +1,11 @@
 <div *ngIf="isLoading">Loading</div>
 <div *ngIf="!isLoading" class="container">
+  <app-search-bar />
   <div *ngIf="toDos.length === 0; else templateName" >
-    Brak zadań do zrobienia
+    Brak zadań
   </div>
   <ng-template #templateName>
+  
     <app-progress-bar />
     <div class="toDoListContainer">
       <ul>

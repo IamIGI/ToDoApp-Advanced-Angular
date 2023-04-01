@@ -25,8 +25,8 @@ export class ToDoListComponent {
     this.toDoObservable = this.toDoService.fetchToDo();
 
     this.toDoObservable.subscribe({
-      next: (response) => {
-        this.toDos = response;
+      next: () => {
+        this.toDos = this.toDoService.getToDos();
         this.isLoading = false;
       },
       error: (errorMessage) => {
