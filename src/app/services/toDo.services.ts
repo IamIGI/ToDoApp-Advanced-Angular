@@ -85,7 +85,6 @@ export class ToDoService {
   }
 
   getToDos() {
-    console.log(this.toDoFiltered);
     return this.toDoFiltered.slice();
   }
 
