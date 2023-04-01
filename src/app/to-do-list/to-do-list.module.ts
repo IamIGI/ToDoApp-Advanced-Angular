@@ -7,9 +7,10 @@ import { ToDoListComponent } from './to-do-list.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { FormsModule } from '@angular/forms';
+import { FiltersComponent } from './filters/filters.component';
 
 @NgModule({
-  declarations: [ToDoListComponent, ProgressBarComponent, SearchBarComponent],
+  declarations: [ToDoListComponent, ProgressBarComponent, SearchBarComponent, FiltersComponent],
 
   imports: [
     RouterModule,

@@ -42,6 +42,15 @@ export class ToDoService {
     this.refreshToDoListWhenNoRequestWasMade();
   }
 
+  filterByName(name: string) {
+    console.log(name);
+    this.toDoFiltered = this.toDo.filter((obj) => {
+      return obj.userName === name;
+    });
+
+    this.refreshToDoListWhenNoRequestWasMade();
+  }
+
   createToDo(newToDo: { userName: string; title: string }) {
     return this.http.post<ToDoCreateTaskResponse>(this.URL + '/add', newToDo);
   }
