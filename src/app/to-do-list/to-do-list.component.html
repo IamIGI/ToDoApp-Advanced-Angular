@@ -1,35 +1,40 @@
 <div *ngIf="isLoading">Loading</div>
 <div *ngIf="!isLoading" class="container">
-  <app-progress-bar />
-  <div class="toDoListContainer">
-    <ul>
-      <li *ngFor="let todo of toDos; let i = index">
-        <div class="toDoItem">
-          <div class="toDoItemSection">
-            <input
-              type="checkbox"
-              [checked]="todo.isDone"
-              (click)="onIsDoneChange(todo._id)"
-            />
-            <span
-              [ngStyle]="{
-                'text-decoration': todo.isDone ? 'line-through' : 'none'
-              }"
-            >
-              {{ todo.title }}
-            </span>
-          </div>
-          <div class="toDoItemSection">
-            {{ todo.userName }}
-            <button (click)="onEdit(todo._id)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button (click)="onDelete(todo._id)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-        </div>
-      </li>
-    </ul>
+  <div *ngIf="toDos.length === 0; else templateName" >
+    Brak zadań do zrobienia
   </div>
+  <ng-template #templateName>
+    <app-progress-bar />
+    <div class="toDoListContainer">
+      <ul>
+        <li *ngFor="let todo of toDos; let i = index">
+          <div class="toDoItem">
+            <div class="toDoItemSection">
+              <input
+                type="checkbox"
+                [checked]="todo.isDone"
+                (click)="onIsDoneChange(todo._id)"
+              />
+              <span
+                [ngStyle]="{
+                  'text-decoration': todo.isDone ? 'line-through' : 'none'
+                }"
+              >
+                {{ todo.title }}
+              </span>
+            </div>
+            <div class="toDoItemSection">
+              {{ todo.userName }}
+              <button (click)="onEdit(todo._id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button (click)="onDelete(todo._id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </ng-template>
 </div>
